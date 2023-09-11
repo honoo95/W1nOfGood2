@@ -1277,6 +1277,12 @@ with gr.Blocks(title="EasyGUI v2.9",theme=gr.themes.Base()) as app:
                         value=150,
                         interactive=True,
                     )
+                    gpus16 = gr.Textbox(
+                            label=i18n("以-分隔输入使用的卡号, 例如   0-1-2   使用卡0和卡1和卡2"),
+                            value=gpus,
+                            interactive=True,
+                            visible=True
+                        )
                     but3 = gr.Button(i18n("训练模型"), variant="primary")
                     but4 = gr.Button(i18n("训练特征索引"), variant="primary")
                     info3 = gr.Textbox(label=i18n("输出信息"), value="", max_lines=10)
@@ -1344,12 +1350,6 @@ with gr.Blocks(title="EasyGUI v2.9",theme=gr.themes.Base()) as app:
                             change_f0,
                             [if_f0_3, sr2, version19],
                             [f0method8, pretrained_G14, pretrained_D15],
-                        )
-                        gpus16 = gr.Textbox(
-                            label=i18n("以-分隔输入使用的卡号, 例如   0-1-2   使用卡0和卡1和卡2"),
-                            value=gpus,
-                            interactive=True,
-                            visible=False
                         )
                     with gr.Row():
                         but5 = gr.Button(i18n("一键训练"), variant="primary", visible=False)
