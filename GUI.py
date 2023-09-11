@@ -207,7 +207,10 @@ def vc_single(
             if os.path.exists(file_index)
             else "Index not used."
         )
-        gr.Info('Success.')
+        try:
+            gr.Info('Success.')
+        except:
+            pass
         return "Success.\n %s\nTime:\n npy:%ss, f0:%ss, infer:%ss" % (
             index_info,
             times[0],
@@ -524,7 +527,10 @@ def preprocess_dataset(trainset_dir, exp_dir, sr, n_p):
     with open("%s/logs/%s/preprocess.log" % (now_dir, exp_dir), "r") as f:
         log = f.read()
     print(log)
-    gr.Info("End Preprocess means you're done with this step. Go to step 2.")
+    try:
+        gr.Info("End Preprocess means you're done with this step. Go to step 2.")
+    except:
+        pass
     yield log
 
 def extract_f0_feature(gpus, n_p, f0method, if_f0, exp_dir, version19, gpus_rmvpe):
@@ -862,7 +868,10 @@ def train_index(exp_dir1, version19):
     )
     # faiss.write_index(index, '%s/added_IVF%s_Flat_FastScan_%s.index'%(exp_dir,n_ivf,version19))
     # infos.append("成功构建索引，added_IVF%s_Flat_FastScan_%s.index"%(n_ivf,version19))
-    gr.Info('Successfully trained the index file!')
+    try:
+        gr.Info('Successfully trained the index file!')
+    except:
+        pass
     yield "\n".join(infos)
 
 
@@ -1684,7 +1693,10 @@ def upload_to_dataset(files, dir):
         path=file.name
         shutil.copy2(path,dir)
         count += 1
-    gr.Info(f'Done! {count} files were uploaded. Now click "1.Process The Dataset."')
+    try:
+        gr.Info(f'Done! {count} files were uploaded. Now click "1.Process The Dataset."')
+    except:
+        pass
     return f' {count} files uploaded to {dir}.'     
     
 def zip_downloader(model):
