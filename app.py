@@ -1201,7 +1201,7 @@ with gr.Blocks(title="EasyGUI v2.9",theme=gr.themes.Base()) as app:
                         label=i18n("输入训练文件夹路径"), value='./dataset/'+datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
                     )
                     easy_uploader = gr.Files(label=i18n("也可批量输入音频文件, 二选一, 优先读文件夹"),file_types=['audio'])
-                    but1 = gr.Button(label=i18n("处理数据"), variant="primary")
+                    but1 = gr.Button(i18n("处理数据"), variant="primary")
                     info1 = gr.Textbox(label=i18n("输出信息"), value="")
                     easy_uploader.upload(fn=upload_to_dataset, inputs=[easy_uploader, trainset_dir4], outputs=[info1, trainset_dir4])
                     gpus6 = gr.Textbox(
@@ -1306,6 +1306,7 @@ with gr.Blocks(title="EasyGUI v2.9",theme=gr.themes.Base()) as app:
                             choices=[i18n("是"), i18n("否")],
                             value=i18n("是"),
                             interactive=True,
+                            visible=False
                         )
                         if_cache_gpu17 = gr.Radio(
                             label=i18n(
