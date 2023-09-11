@@ -7,7 +7,6 @@ from subprocess import Popen
 import faiss
 from random import shuffle
 import json, datetime, requests
-from gtts import gTTS
 now_dir = os.getcwd()
 sys.path.append(now_dir)
 tmp = os.path.join(now_dir, "TEMP")
