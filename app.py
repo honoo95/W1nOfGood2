@@ -884,6 +884,24 @@ def upload_to_dataset(files, dir):
         pass
     return i18n("处理数据"), {"value":dir,"__type__":"update"}
 
+def download_model_files(model):
+    model_found = False
+    index_found = False
+    if os.path.exists(f'./assets/weights/{model}.pth'): model_found = True
+    if os.path.exists(f'./logs/{model}'):
+        for file in os.listdir(f'./logs/{model}'):
+            if file.endswith('.index') and 'added' in file:
+                log_file = file
+                index_found = True
+    if model_found and index_found:
+        return [f'./assets/weights/{model}.pth', f'./logs/{model}/{log_file}'], "Done"
+    elif model_found and not index_found:
+        return f'./assets/weights/{model}.pth', "Could not find Index file."
+    elif index_found and not model_found:
+        return f'./logs/{model}/{log_file}', f'Make sure the Voice Name is correct. I could not find {model}.pth'
+    else:
+        return None, f'Could not find {model}.pth or corresponding Index file.'
+    
 with gr.Blocks(title="EasyGUI v2.9",theme=gr.themes.Base()) as app:
     gr.HTML("<h1> EasyGUI v2.9 </h1>")
     with gr.Tabs():
@@ -1322,6 +1340,11 @@ with gr.Blocks(title="EasyGUI v2.9",theme=gr.themes.Base()) as app:
                             value=i18n("是"),
                             interactive=True,
                         )
+                    with gr.Row():
+                        download_model = gr.Button('5.Download Model')
+                    with gr.Row():
+                        model_files = gr.Files(label='Your Model and Index file can be downloaded here:')
+                        download_model.click(fn=download_model_files, inputs=[exp_dir1], outputs=[model_files, info3])
                     with gr.Row():
                         pretrained_G14 = gr.Textbox(
                             label=i18n("加载预训练底模G路径"),
