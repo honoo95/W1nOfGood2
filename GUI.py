@@ -1160,8 +1160,6 @@ with gr.Blocks(title="EasyGUI v2.9",theme=gr.themes.Base()) as app:
             with gr.Row():
                 gr.Markdown(
                 """
-                Original RVC:https://github.com/RVC-Project/Retrieval-based-Voice-Conversion-WebUI
-                Mangio's RVC Fork:https://github.com/Mangio621/Mangio-RVC-Fork
                 ❤️ If you like the EasyGUI, help me keep it.❤️ 
                 https://paypal.me/lesantillan
                 """
@@ -1279,7 +1277,7 @@ with gr.Blocks(title="EasyGUI v2.9",theme=gr.themes.Base()) as app:
                     )
                     gpus16 = gr.Textbox(
                             label=i18n("以-分隔输入使用的卡号, 例如   0-1-2   使用卡0和卡1和卡2"),
-                            value=gpus,
+                            value="0",
                             interactive=True,
                             visible=True
                         )
