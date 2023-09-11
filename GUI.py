@@ -157,7 +157,7 @@ def change_choices():
     audio_files=[]
     for filename in os.listdir("./audios"):
         if filename.endswith(('.wav','.mp3','.ogg')):
-            audio_files.append(filename)
+            audio_files.append('./audios/'+filename)
     return {"choices": sorted(names), "__type__": "update"}, {
         "choices": sorted(index_paths),
         "__type__": "update",
