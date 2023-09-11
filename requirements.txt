@@ -2,7 +2,7 @@ gdown
 mega.py
 joblib>=1.1.0
 numba==0.56.4
-numpy==1.23.5
+numpy==1.22.0
 scipy
 librosa==0.9.1
 llvmlite==0.39.0
