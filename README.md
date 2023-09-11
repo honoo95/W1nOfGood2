@@ -1,26 +1,31 @@
 [![Open In Colab](https://img.shields.io/badge/Colab-F9AB00?style=for-the-badge&logo=googlecolab&color=525252)](https://colab.research.google.com/drive/1r4IRL0UA7JEoZ0ZK8PKfMyTIBHKpyhcw)
 
-# Installation
+# Local Installation
+If you already have RVC installed, then just download GUI.py and drop it in the root folder!
+If you need to install RVC, you can do it like this:
+
+I recommend you use a virtual environment
 
 ```bash
-!git clone https://github.com/777gt/-EVC-
-!cd -EVC-
-!pip install -r requirements.txt
+python -m venv RVC
+cd RVC
+git clone https://github.com/777gt/-EVC-
+Scripts/activate.bat
+pip install torch torchvision torchaudio
+pip install -r "-EVC-/requirements.txt"
 ```
-Now download the hubert base model into that folder too.
-
-# Running it
-On windows you can just open the go-web.bat file or navigate to the EasyGUI folder and manually type:
+If you're on Windows, like me, and don't have an NVIDA graphics card, install the requirements from a different .txt:
 ```bash
-!python.exe GUI.py --pycmd python.exe --port 7897
+pip install -r "-EVC-/requirements-dml.txt"
 ```
-On linux do:
-```bash
-!python3 GUI.py --pycmd python3
-```
+Also, do not forget to download the necessary models. EasyGUI uses RVC 2 40k models.
 
-Latest updates:
-6/18/23 : Automatically selects the index file when you select your model if it exists.
-6/19/23: Added Elevenlabs API TTS and Google TTS.
-6/20/23: Changed default values, removed resampling option. Optimized for local installation.
-6/21/23: Added a Wav2Lip tab from wav2lip-HD https://github.com/indianajson/wav2lip-HD
+```bash
+wget https://huggingface.co/lj1995/VoiceConversionWebUI/resolve/main/rmvpe.pt -O ./assets/rmvpe/rmvpe.pt
+wget https://huggingface.co/lj1995/VoiceConversionWebUI/resolve/main/rmvpe.onnx -O ./assets/rmvpe/rmvpe.onnx
+wget https://huggingface.co/lj1995/VoiceConversionWebUI/resolve/main/hubert_base.pt -O ./assets/hubert/hubert_base.pt
+wget https://huggingface.co/lj1995/VoiceConversionWebUI/resolve/main/pretrained_v2/D40k.pth -O ./assets/pretrained_v2/D40k.pth
+wget https://huggingface.co/lj1995/VoiceConversionWebUI/resolve/main/pretrained_v2/G40k.pth -O ./assets/pretrained_v2/G40k.pth
+wget https://huggingface.co/lj1995/VoiceConversionWebUI/resolve/main/pretrained_v2/f0D40k.pth -O ./assets/pretrained_v2/f0D40k.pth
+wget https://huggingface.co/lj1995/VoiceConversionWebUI/resolve/main/pretrained_v2/f0G40k.pth -O ./assets/pretrained_v2/f0G40k.pth
+```
