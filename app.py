@@ -902,9 +902,9 @@ def download_model_files(model):
     else:
         return None, f'Could not find {model}.pth or corresponding Index file.'
 
-with gr.Blocks(title="EasyGUI v2.9",theme=gr.themes.Base()) as app:
+with gr.Blocks(title="🔊",theme=gr.themes.Base()) as app:
     with gr.Row():
-        gr.HTML("<h1> EasyGUI v2.9.1 </h1>")
+        gr.HTML("<img  src='file/a.png' alt='image'>")
     with gr.Tabs():
         with gr.TabItem(i18n("模型推理")):
             with gr.Row():
@@ -1185,7 +1185,7 @@ with gr.Blocks(title="EasyGUI v2.9",theme=gr.themes.Base()) as app:
             with gr.Row():
                 gr.Markdown(
                 """
-                ❤️ If you like the EasyGUI, help me keep it.❤️ 
+                ❤️ If you use this and like it, help me keep it.❤️ 
                 https://paypal.me/lesantillan
                 """
                 )
