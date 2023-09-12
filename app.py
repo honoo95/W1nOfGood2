@@ -902,7 +902,7 @@ def download_model_files(model):
     else:
         return None, f'Could not find {model}.pth or corresponding Index file.'
 
-with gr.Blocks(title="🔊",theme=gr.themes.Base()) as app:
+with gr.Blocks(title="🔊",theme=gr.themes.Base(primary_hue="rose",neutral_hue="zinc")) as app:
     with gr.Row():
         gr.HTML("<img  src='file/a.png' alt='image'>")
     with gr.Tabs():
