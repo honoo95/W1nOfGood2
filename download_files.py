@@ -1,5 +1,7 @@
 import subprocess
 import os
+from IPython.display import clear_output
+from ipywidgets import Button
 
 assets_folder = "./assets/"
 
@@ -23,3 +25,6 @@ for file, link in files.items():
             subprocess.run(['wget', link, '-O', file_path], check=True)
         except subprocess.CalledProcessError as e:
             print(f"Error downloading {file}: {e}")
+
+clear_output()
+Button(description="\u2714 Success", button_style='success')
