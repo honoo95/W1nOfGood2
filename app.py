@@ -901,9 +901,10 @@ def download_model_files(model):
         return f'./logs/{model}/{log_file}', f'Make sure the Voice Name is correct. I could not find {model}.pth'
     else:
         return None, f'Could not find {model}.pth or corresponding Index file.'
-    
+
 with gr.Blocks(title="EasyGUI v2.9",theme=gr.themes.Base()) as app:
-    gr.HTML("<h1> EasyGUI v2.9 </h1>")
+    with gr.Row():
+        gr.HTML("<h1> EasyGUI v2.9.1 </h1>")
     with gr.Tabs():
         with gr.TabItem(i18n("模型推理")):
             with gr.Row():
@@ -982,6 +983,7 @@ with gr.Blocks(title="EasyGUI v2.9",theme=gr.themes.Base()) as app:
                             value=0,
                             step=1,
                             interactive=True,
+                            visible=False
                         )
                         rms_mix_rate0 = gr.Slider(
                             minimum=0,
@@ -1043,11 +1045,11 @@ with gr.Blocks(title="EasyGUI v2.9",theme=gr.themes.Base()) as app:
                 )
             with gr.Row():
                 with gr.Accordion(open=False, label=i18n("批量转换, 输入待转换音频文件夹, 或上传多个音频文件, 在指定文件夹(默认opt)下输出转换的音频. ")):                
-                    with gr.Column():
+                    with gr.Row():
+                        opt_input = gr.Textbox(label=i18n("指定输出文件夹"), value="opt")
                         vc_transform1 = gr.Number(
                             label=i18n("变调(整数, 半音数量, 升八度12降八度-12)"), value=0
                         )
-                        opt_input = gr.Textbox(label=i18n("指定输出文件夹"), value="opt")
                         f0method1 = gr.Radio(
                             label=i18n(
                                 "选择音高提取算法,输入歌声可用pm提速,harvest低音好但巨慢无比,crepe效果好但吃GPU,rmvpe效果最好且微吃GPU"
@@ -1058,6 +1060,7 @@ with gr.Blocks(title="EasyGUI v2.9",theme=gr.themes.Base()) as app:
                             value="pm",
                             interactive=True,
                         )
+                    with gr.Row():
                         filter_radius1 = gr.Slider(
                             minimum=0,
                             maximum=7,
@@ -1065,8 +1068,9 @@ with gr.Blocks(title="EasyGUI v2.9",theme=gr.themes.Base()) as app:
                             value=3,
                             step=1,
                             interactive=True,
+                            visible=False
                         )
-                    with gr.Column():
+                    with gr.Row():
                         file_index3 = gr.Textbox(
                             label=i18n("特征检索库文件路径,为空则使用下拉的选择结果"),
                             value="",
@@ -1077,6 +1081,7 @@ with gr.Blocks(title="EasyGUI v2.9",theme=gr.themes.Base()) as app:
                             label=i18n("自动检测index路径,下拉式选择(dropdown)"),
                             choices=sorted(index_paths),
                             interactive=True,
+                            visible=False
                         )
                         refresh_button.click(
                             fn=lambda: change_choices()[1],
@@ -1095,8 +1100,9 @@ with gr.Blocks(title="EasyGUI v2.9",theme=gr.themes.Base()) as app:
                             label=i18n("检索特征占比"),
                             value=1,
                             interactive=True,
+                            visible=False
                         )
-                    with gr.Column():
+                    with gr.Row():
                         resample_sr1 = gr.Slider(
                             minimum=0,
                             maximum=48000,
@@ -1104,12 +1110,13 @@ with gr.Blocks(title="EasyGUI v2.9",theme=gr.themes.Base()) as app:
                             value=0,
                             step=1,
                             interactive=True,
+                            visible=False
                         )
                         rms_mix_rate1 = gr.Slider(
                             minimum=0,
                             maximum=1,
                             label=i18n("输入源音量包络替换输出音量包络融合比例，越靠近1越使用输出包络"),
-                            value=1,
+                            value=0.21,
                             interactive=True,
                         )
                         protect1 = gr.Slider(
@@ -1122,10 +1129,10 @@ with gr.Blocks(title="EasyGUI v2.9",theme=gr.themes.Base()) as app:
                             step=0.01,
                             interactive=True,
                         )
-                    with gr.Column():
+                    with gr.Row():
                         dir_input = gr.Textbox(
                             label=i18n("输入待处理音频文件夹路径(去文件管理器地址栏拷就行了)"),
-                            value="E:\codes\py39\\test-20230416b\\todo-songs",
+                            value="./audios",
                         )
                         inputs = gr.File(
                             file_count="multiple", label=i18n("也可批量输入音频文件, 二选一, 优先读文件夹")
@@ -1134,7 +1141,7 @@ with gr.Blocks(title="EasyGUI v2.9",theme=gr.themes.Base()) as app:
                         format1 = gr.Radio(
                             label=i18n("导出文件格式"),
                             choices=["wav", "flac", "mp3", "m4a"],
-                            value="flac",
+                            value="wav",
                             interactive=True,
                         )
                         but1 = gr.Button(i18n("转换"), variant="primary")
@@ -1148,10 +1155,10 @@ with gr.Blocks(title="EasyGUI v2.9",theme=gr.themes.Base()) as app:
                                 inputs,
                                 vc_transform1,
                                 f0method1,
-                                file_index3,
-                                file_index4,
+                                file_index1,
+                                file_index2,
                                 # file_big_npy2,
-                                index_rate2,
+                                index_rate1,
                                 filter_radius1,
                                 resample_sr1,
                                 rms_mix_rate1,
