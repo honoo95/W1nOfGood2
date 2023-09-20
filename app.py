@@ -904,7 +904,7 @@ def download_model_files(model):
 
 with gr.Blocks(title="🔊",theme=gr.themes.Base(primary_hue="rose",neutral_hue="zinc")) as app:
     with gr.Row():
-        gr.HTML("<img  src='https://kpopsound.co/themes/soundify/img/logo.png' alt='image'>")
+        gr.HTML("<img  src='file/lp.png' alt='image'>")
     with gr.Tabs():
         with gr.TabItem(i18n("模型推理")):
             with gr.Row():
