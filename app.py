@@ -821,7 +821,7 @@ def save_wav(file):
         return './audios/'+os.path.basename(file_path)
     except AttributeError:
         try:
-            new_name = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")+'.wav'
+            new_name = 'kpop'+datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")+'.wav'
             new_path='./audios/'+new_name
             shutil.move(file,new_path)
             return new_path
@@ -902,7 +902,7 @@ def download_model_files(model):
     else:
         return None, f'Could not find {model}.pth or corresponding Index file.'
 
-with gr.Blocks(title="🔊",theme=gr.themes.Base(primary_hue="rose",neutral_hue="zinc")) as app:
+with gr.Blocks(title="KPOPEASYGUI 🔊",theme=gr.themes.Base(primary_hue="rose", secondary_hue="pink", neutral_hue="slate")) as app:
     with gr.Row():
         gr.HTML("<img  src='file/lp.png' alt='image'>")
     with gr.Tabs():
