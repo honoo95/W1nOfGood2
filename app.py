@@ -904,7 +904,7 @@ def download_model_files(model):
 
 with gr.Blocks(title="KPOPEASYGUI 🔊",theme=gr.themes.Base(primary_hue="rose", secondary_hue="pink", neutral_hue="slate")) as app:
     with gr.Row():
-        gr.HTML("<img  src='file/lp.png' alt='image'>")
+        gr.HTML("<img  src='file/lp.gif' alt='image'>")
     with gr.Tabs():
         with gr.TabItem(i18n("模型推理")):
             with gr.Row():
