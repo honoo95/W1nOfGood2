@@ -829,20 +829,13 @@ def save_wav(file):
             return None
 
 def download_from_url(url, model):
-    if url == '':
-        return "URL cannot be left empty."
-    if model =='':
-        return "You need to name your model. For example: My-Model"
-    url = url.strip()
-    zip_dirs = ["zips", "unzips"]
-    for directory in zip_dirs:
-        if os.path.exists(directory):
-            shutil.rmtree(directory)
-    os.makedirs("zips", exist_ok=True)
-    os.makedirs("unzips", exist_ok=True)
-    zipfile = model + '.zip'
-    zipfile_path = './zips/' + zipfile
-    try:
+    file_path = find_folder_parent(".", "assets")
+    print(file_path)
+    zips_path = os.path.join(file_path, "assets", "zips")
+    if not os.path.exists(zips_path):
+        os.makedirs(zips_path)
+    if url != "":
+        print(i18n("Downloading the file: ") + f"{url}")
         if "drive.google.com" in url:
             if "file/d/" in url:
                 file_id = url.split("file/d/")[1].split("/")[0]
@@ -854,7 +847,7 @@ def download_from_url(url, model):
             if file_id:
                 os.chdir(zips_path)
                 result = subprocess.run(
-                    ["gdown", f"https://drive.google.com/uc?id={file_id}", "--fuzzy"],
+                    ["gdown", f"https://drive.google.com/uc?id={file_id}", "--fuzzy", zipfile_path],
                     capture_output=True,
                     text=True,
                     encoding="utf-8",
@@ -867,31 +860,105 @@ def download_from_url(url, model):
                 if "Cannot retrieve the public link of the file." in str(result.stderr):
                     return "private link"
                 print(result.stderr)
-                
-        elif "mega.nz" in url:
-            m = Mega()
-            m.download_url(url, './zips')
-        else:
-            subprocess.run(["wget", url, "-O", zipfile_path])
-        for filename in os.listdir("./zips"):
-            if filename.endswith(".zip"):
-                zipfile_path = os.path.join("./zips/",filename)
-                shutil.unpack_archive(zipfile_path, "./unzips", 'zip')
+
+        elif "/blob/" in url:
+            os.chdir(zips_path)
+            url = url.replace("blob", "resolve")
+            response = requests.get(url)
+            if response.status_code == 200:
+                file_name = url.split("/")[-1]
+                with open(os.path.join(zips_path, file_name), "wb") as newfile:
+                    newfile.write(response.content)
             else:
-                return "No zipfile found."
-        for root, dirs, files in os.walk('./unzips'):
-            for file in files:
-                file_path = os.path.join(root, file)
-                if file.endswith(".index"):
-                    os.mkdir(f'./logs/{model}')
-                    shutil.copy2(file_path,f'./logs/{model}')
-                elif "G_" not in file and "D_" not in file and file.endswith(".pth"):
-                    shutil.copy(file_path,f'./assets/weights/{model}.pth')
-        shutil.rmtree("zips")
-        shutil.rmtree("unzips")
-        return "Success."
-    except:
-        return "There's been an error."
+                os.chdir(file_path)
+        elif "mega.nz" in url:
+            if "#!" in url:
+                file_id = url.split("#!")[1].split("!")[0]
+            elif "file/" in url:
+                file_id = url.split("file/")[1].split("/")[0]
+            else:
+                return None
+            if file_id:
+                m = Mega()
+                m.download_url(url, zips_path)
+        elif "/tree/main" in url:
+            response = requests.get(url)
+            soup = BeautifulSoup(response.content, "html.parser")
+            temp_url = ""
+            for link in soup.find_all("a", href=True):
+                if link["href"].endswith(".zip"):
+                    temp_url = link["href"]
+                    break
+            if temp_url:
+                url = temp_url
+                url = url.replace("blob", "resolve")
+                if "huggingface.co" not in url:
+                    url = "https://huggingface.co" + url
+
+                    wget.download(url)
+            else:
+                print("No .zip file found on the page.")
+        elif "cdn.discordapp.com" in url:
+            file = requests.get(url)
+            os.chdir("./assets/zips")
+            if file.status_code == 200:
+                name = url.split("/")
+                with open(
+                    os.path.join(name[-1]), "wb"
+                ) as newfile:
+                    newfile.write(file.content)
+            else:
+                return None
+        elif "pixeldrain.com" in url:
+            try:
+                file_id = url.split("pixeldrain.com/u/")[1]
+                os.chdir(zips_path)
+                print(file_id)
+                response = requests.get(f"https://pixeldrain.com/api/file/{file_id}")
+                if response.status_code == 200:
+                    file_name = (
+                        response.headers.get("Content-Disposition")
+                        .split("filename=")[-1]
+                        .strip('";')
+                    )
+                    if not os.path.exists(zips_path):
+                        os.makedirs(zips_path)
+                    with open(os.path.join(zips_path, file_name), "wb") as newfile:
+                        newfile.write(response.content)
+                        os.chdir(file_path)
+                        return "downloaded"
+                else:
+                    os.chdir(file_path)
+                    return None
+            except Exception as e:
+                print(e)
+                os.chdir(file_path)
+                return None
+        else:
+            os.chdir(zips_path)
+            wget.download(url)
+
+        # Fix points in the zips
+        for currentPath, _, zipFiles in os.walk(zips_path):
+            for Files in zipFiles:
+                filePart = Files.split(".")
+                extensionFile = filePart[len(filePart) - 1]
+                filePart.pop()
+                nameFile = "_".join(filePart)
+                realPath = os.path.join(currentPath, Files)
+                os.rename(realPath, nameFile + "." + extensionFile)
+
+        os.chdir(file_path)
+        print(i18n("Full download"))
+        return "downloaded"
+    else:
+        return None
+
+
+class error_message(Exception):
+    def __init__(self, mensaje):
+        self.mensaje = mensaje
+        super().__init__(mensaje)
 
 def upload_to_dataset(files, dir):
     if dir == '':
