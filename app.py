@@ -844,12 +844,7 @@ def download_from_url(url, model):
     zipfile_path = './zips/' + zipfile
     try:
         if "drive.google.com" in url:
-            subprocess.run(["gdown", url, "--fuzzy", "-O", zipfile_path],
-                    capture_output=True,
-                    text=True,
-                    encoding="utf-8",
-                )
-            
+            subprocess.run(["gdown", url, "--fuzzy", "-O", zipfile_path])
         elif "mega.nz" in url:
             m = Mega()
             m.download_url(url, './zips')
@@ -871,9 +866,9 @@ def download_from_url(url, model):
                     shutil.copy(file_path,f'./assets/weights/{model}.pth')
         shutil.rmtree("zips")
         shutil.rmtree("unzips")
-        return "Success."
+        return "Model Successfully Imported. (If you are using a google drive link it may not work even this said Success)"
     except:
-        return "There's been an error."
+        return "There's been an error. (Check your link again!)"
 
 def upload_to_dataset(files, dir):
     if dir == '':
