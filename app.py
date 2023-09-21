@@ -1175,6 +1175,12 @@ with gr.Blocks(title="KPOPEASYGUI 🔊",theme=gr.themes.Base(primary_hue="rose",
             )
         with gr.TabItem("Download Model"):
             with gr.Row():
+                gr.Markdown(
+                """
+                ⚠️ Google Drive Links, V1 models, and some leelo models will not work with this gradio ⚠️
+                """
+                )
+            with gr.Row():
                 url=gr.Textbox(label="Enter the URL to the Model:")
             with gr.Row():
                 model = gr.Textbox(label="Name your model:")
@@ -1185,7 +1191,7 @@ with gr.Blocks(title="KPOPEASYGUI 🔊",theme=gr.themes.Base(primary_hue="rose",
             with gr.Row():
                 gr.Markdown(
                 """
-                ❤️ Support Original Creator from this easyGUI❤️ 
+                ❤️ Support Original Creator from this easyGUI ❤️ 
                 paypal.me/lesantillan
                 """
                 )
