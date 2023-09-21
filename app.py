@@ -827,6 +827,17 @@ def save_wav(file):
             return new_path
         except TypeError:
             return None
+        
+def find_folder_parent(search_dir, folder_name):
+    for dirpath, dirnames, filenames in os.walk(search_dir):
+        if folder_name in dirnames:
+            return os.path.abspath(dirpath)
+    return None
+
+file_path = find_folder_parent(".", "assets")
+tmp = os.path.join(file_path, "temp")
+shutil.rmtree(tmp, ignore_errors=True)
+os.environ["temp"] = tmp
 
 def download_from_url(url, model):
     file_path = find_folder_parent(".", "assets")
