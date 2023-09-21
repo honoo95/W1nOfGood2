@@ -872,9 +872,9 @@ def download_from_url(url, model):
                     shutil.copy(file_path,f'./assets/weights/{model}.pth')
         shutil.rmtree("zips")
         shutil.rmtree("unzips")
-        return "Success."
+        return "Model Successfully Imported. (If you are using a google drive link it may not work even this said Success)"
     except:
-        return "There's been an error."
+        return "There's been an error. (Check your link again!)"
 
 def upload_to_dataset(files, dir):
     if dir == '':
@@ -1166,8 +1166,8 @@ with gr.Blocks(title="EasyGUI v2.9",theme=gr.themes.Base()) as app:
             with gr.Row():
                 gr.Markdown(
                 """
-                ❤️ If you like the EasyGUI, help me keep it.❤️ 
-                https://paypal.me/lesantillan
+                ❤️ If you like the EasyGUI ❤️ 
+                paypal.me/lesantillan
                 """
                 )
         with gr.TabItem(i18n("训练")):
