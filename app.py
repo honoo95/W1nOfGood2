@@ -953,7 +953,7 @@ with gr.Blocks(title="KPOPEASYGUI 🔊",theme=gr.themes.Base(primary_hue="rose",
                             minimum=0,
                             maximum=1,
                             label=i18n("检索特征占比"),
-                            value=0.66,
+                            value=0.80,
                             interactive=True,
                         )
                     vc_output2 = gr.Audio(label=i18n("输出音频(右下角三个点,点了可以下载)"))
@@ -998,7 +998,7 @@ with gr.Blocks(title="KPOPEASYGUI 🔊",theme=gr.themes.Base(primary_hue="rose",
                             label=i18n(
                                 "保护清辅音和呼吸声，防止电音撕裂等artifact，拉满0.5不开启，调低加大保护力度但可能降低索引效果"
                             ),
-                            value=0.33,
+                            value=0.28,
                             step=0.01,
                             interactive=True,
                         )
@@ -1125,7 +1125,7 @@ with gr.Blocks(title="KPOPEASYGUI 🔊",theme=gr.themes.Base(primary_hue="rose",
                             label=i18n(
                                 "保护清辅音和呼吸声，防止电音撕裂等artifact，拉满0.5不开启，调低加大保护力度但可能降低索引效果"
                             ),
-                            value=0.33,
+                            value=0.28,
                             step=0.01,
                             interactive=True,
                         )
@@ -1198,11 +1198,11 @@ with gr.Blocks(title="KPOPEASYGUI 🔊",theme=gr.themes.Base(primary_hue="rose",
 
     if config.iscolab:
         app.queue(concurrency_count=511, max_size=1022).launch(share=True),
-        favicon_path="file/Logo_of_TWICE.svg.png"
+        favicon_path="/Logo_of_TWICE.svg.png"
     else:
         app.queue(concurrency_count=511, max_size=1022).launch(
             server_name="0.0.0.0",
-            favicon_path="file/Logo_of_TWICE.svg.png",
+            favicon_path="/Logo_of_TWICE.svg.png",
             inbrowser=not config.noautoopen,
             server_port=config.listen_port,
             quiet=True,
