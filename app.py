@@ -844,7 +844,30 @@ def download_from_url(url, model):
     zipfile_path = './zips/' + zipfile
     try:
         if "drive.google.com" in url:
-            subprocess.run(["gdown", url, "--fuzzy", "-O", zipfile_path])
+            if "file/d/" in url:
+                file_id = url.split("file/d/")[1].split("/")[0]
+            elif "id=" in url:
+                file_id = url.split("id=")[1].split("&")[0]
+            else:
+                return None
+
+            if file_id:
+                os.chdir(zips_path)
+                result = subprocess.run(
+                    ["gdown", f"https://drive.google.com/uc?id={file_id}", "--fuzzy"],
+                    capture_output=True,
+                    text=True,
+                    encoding="utf-8",
+                )
+                if (
+                    "Too many users have viewed or downloaded this file recently"
+                    in str(result.stderr)
+                ):
+                    return "too much use"
+                if "Cannot retrieve the public link of the file." in str(result.stderr):
+                    return "private link"
+                print(result.stderr)
+                
         elif "mega.nz" in url:
             m = Mega()
             m.download_url(url, './zips')
