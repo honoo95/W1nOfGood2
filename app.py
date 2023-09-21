@@ -843,6 +843,8 @@ def download_from_url(url, model):
     file_path = find_folder_parent(".", "assets")
     print(file_path)
     zips_path = os.path.join(file_path, "assets", "zips")
+    zipfile = model + '.zip'
+    zipfile_path = './zips/' + zipfile
     if not os.path.exists(zips_path):
         os.makedirs(zips_path)
     if url != "":
