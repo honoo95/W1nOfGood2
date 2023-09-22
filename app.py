@@ -1198,11 +1198,11 @@ with gr.Blocks(title="KPOPEASYGUI 🔊",theme=gr.themes.Base(primary_hue="rose",
 
     if config.iscolab:
         app.queue(concurrency_count=511, max_size=1022).launch(share=True),
-        favicon_path="/notebooks/Rproject/Logo_of_TWICE.svg.png"
+        favicon_path="./TW.png"
     else:
         app.queue(concurrency_count=511, max_size=1022).launch(
             server_name="0.0.0.0",
-            favicon_path="/notebooks/Rproject/Logo_of_TWICE.svg.png",
+            favicon_path="./TW.png",
             inbrowser=not config.noautoopen,
             server_port=config.listen_port,
             quiet=True,
