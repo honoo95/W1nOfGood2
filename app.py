@@ -832,7 +832,7 @@ def download_from_url(url, model):
     if url == '':
         return "URL cannot be left empty."
     if model =='':
-        return "You need to name your model. For example: My-Model"
+        return "You need to name your model. With the model maker For example: Model-.nww's"
     url = url.strip()
     zip_dirs = ["zips", "unzips"]
     for directory in zip_dirs:
@@ -1183,7 +1183,7 @@ with gr.Blocks(title="KPOPEASYGUI 🔊",theme=gr.themes.Base(primary_hue="rose",
             with gr.Row():
                 url=gr.Textbox(label="Enter the URL to the Model:")
             with gr.Row():
-                model = gr.Textbox(label="Name your model:")
+                model = gr.Textbox(label="Name your model (with model maker name!!!):")
                 download_button=gr.Button("Download")
             with gr.Row():
                 status_bar=gr.Textbox(label="")
