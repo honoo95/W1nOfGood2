@@ -868,7 +868,7 @@ def download_from_url(url, model):
         shutil.rmtree("unzips")
         return "Model Successfully Imported. (If you are using a google drive link it may not work even this said Success)"
     except:
-        return "There's been an error. (Check your link again!)"
+        return "There's been an error. (Check your link again!) or or (it worked and this is a false error haha... help)"
 
 def upload_to_dataset(files, dir):
     if dir == '':
