@@ -1177,7 +1177,7 @@ with gr.Blocks(title="KPOPEASYGUI 🔊",theme=gr.themes.Base(primary_hue="rose",
             with gr.Row():
                 gr.Markdown(
                 """
-                ⚠️ Google Drive Links, V1 models, and some leelo models will not work with this gradio ⚠️
+                ⚠️ Google Drive Links, and some leelo models will not work with this gradio ⚠️
                 """
                 )
             with gr.Row():
