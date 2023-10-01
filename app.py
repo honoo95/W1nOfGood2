@@ -1196,12 +1196,12 @@ with gr.Blocks(title="KPOPEASYGUI 🔊",theme=gr.themes.Base(primary_hue="rose",
                 """
                 )
 
-            with gr.TabItem("Training"):
-                with gr.Row():
-                    gr.Markdown(
-                """
-                ⚠️ HAHAH YOU THOUGHT I ADDED TRAINING??? NO OFC DUH ⚠️
-                """
+        with gr.TabItem("Training"):
+            with gr.Row():
+                gr.Markdown(
+                    """
+                    ⚠️ HAHAH YOU THOUGHT I ADDED TRAINING??? NO OFC DUH ⚠️
+                    """
                 )
 
     if config.iscolab:
