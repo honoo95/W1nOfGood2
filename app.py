@@ -1193,6 +1193,8 @@ with gr.Blocks(title="KPOPEASYGUI 🔊",theme=gr.themes.Base(primary_hue="rose",
                 """
                 ❤️ Support Original Creator from this easyGUI ❤️ 
                 paypal.me/lesantillan
+                Logo made by zarrrrrrrrrrrrrrrr. in KPOP AI UNIVERSE
+                Gradio file by .nw in KPOP AI UNIVERSE
                 """
                 )
 
@@ -1200,7 +1202,7 @@ with gr.Blocks(title="KPOPEASYGUI 🔊",theme=gr.themes.Base(primary_hue="rose",
             with gr.Row():
                 gr.Markdown(
                     """
-                    ⚠️ HAHAH YOU THOUGHT I ADDED TRAINING??? NO OFC DUH ⚠️
+                    ⚠️ HAHAH YOU THOUGHT MR. NW ADDED TRAINING??? NO OFC DUH ⚠️
                     """
                 )
 
